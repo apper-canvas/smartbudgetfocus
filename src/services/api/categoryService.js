@@ -16,7 +16,8 @@ const categoryService = {
           { field: { Name: "color_c" } },
           { field: { Name: "icon_c" } },
           { field: { Name: "is_custom_c" } }
-        ]
+        ],
+        orderBy: [{"fieldName": "name_c", "sorttype": "ASC"}]
       };
 
       const response = await apperClient.fetchRecords("category_c", params);
@@ -39,7 +40,7 @@ const categoryService = {
     }
   },
 
-  getById: async (id) => {
+getById: async (id) => {
     try {
       const { ApperClient } = window.ApperSDK;
       const apperClient = new ApperClient({
@@ -80,7 +81,7 @@ const categoryService = {
     }
   },
 
-  getByType: async (type) => {
+getByType: async (type) => {
     try {
       const { ApperClient } = window.ApperSDK;
       const apperClient = new ApperClient({
@@ -104,7 +105,8 @@ const categoryService = {
             Operator: "ExactMatch",
             Values: [type]
           }
-        ]
+        ],
+        orderBy: [{"fieldName": "name_c", "sorttype": "ASC"}]
       };
 
       const response = await apperClient.fetchRecords("category_c", params);
@@ -127,7 +129,7 @@ const categoryService = {
     }
   },
 
-  create: async (data) => {
+create: async (data) => {
     try {
       if (!data.name || !data.type || !data.color || !data.icon) {
         throw new Error("All fields are required");
@@ -186,7 +188,7 @@ const categoryService = {
     }
   },
 
-  update: async (id, data) => {
+update: async (id, data) => {
     try {
       const { ApperClient } = window.ApperSDK;
       const apperClient = new ApperClient({
@@ -241,7 +243,7 @@ const categoryService = {
     }
   },
 
-  delete: async (id) => {
+delete: async (id) => {
     try {
       const { ApperClient } = window.ApperSDK;
       const apperClient = new ApperClient({
