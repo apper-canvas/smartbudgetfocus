@@ -127,7 +127,7 @@ const Reports = () => {
       };
 
       const [transactionsRes, categoriesRes, budgetsRes, accountsRes] = await Promise.all([
-        transactionService.fetchRecords(transactionsParams),
+transactionService.getAll(transactionsParams),
         categoryService.fetchRecords(categoriesParams),
         budgetService.fetchRecords(budgetsParams),
         bankAccountService.fetchRecords(accountsParams)
