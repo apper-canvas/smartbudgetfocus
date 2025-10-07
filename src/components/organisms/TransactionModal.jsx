@@ -10,10 +10,11 @@ import categoryService from "@/services/api/categoryService";
 
 const TransactionModal = ({ isOpen, onClose, onSuccess, transaction = null }) => {
   const [formData, setFormData] = useState({
-    amount: "",
+amount: "",
     type: "expense",
     category: "",
     date: new Date().toISOString().split("T")[0],
+    title: "",
     description: ""
   });
   const [categories, setCategories] = useState([]);
@@ -25,18 +26,20 @@ const TransactionModal = ({ isOpen, onClose, onSuccess, transaction = null }) =>
       loadCategories();
       if (transaction) {
         setFormData({
-          amount: transaction.amount.toString(),
+amount: transaction.amount.toString(),
           type: transaction.type,
           category: transaction.category,
           date: new Date(transaction.date).toISOString().split("T")[0],
+          title: transaction.title || "",
           description: transaction.description || ""
         });
       } else {
-        setFormData({
+setFormData({
           amount: "",
           type: "expense",
           category: "",
           date: new Date().toISOString().split("T")[0],
+          title: "",
           description: ""
         });
       }
@@ -58,6 +61,9 @@ const TransactionModal = ({ isOpen, onClose, onSuccess, transaction = null }) =>
   const validateForm = () => {
     const newErrors = {};
     
+if (!formData.title || formData.title.trim() === "") {
+      newErrors.title = "Please enter a title";
+    }
     if (!formData.amount || parseFloat(formData.amount) <= 0) {
       newErrors.amount = "Please enter a valid amount";
     }
@@ -84,7 +90,7 @@ const TransactionModal = ({ isOpen, onClose, onSuccess, transaction = null }) =>
     setLoading(true);
     
 try {
-      // Find the category ID from the selected category name
+// Find the category ID from the selected category name
       const selectedCategory = categories.find(cat => cat.name === formData.category);
       
       const transactionData = {
@@ -93,6 +99,7 @@ try {
         category: formData.category,
         categoryId: selectedCategory?.Id, // Add category ID for lookup field
         date: new Date(formData.date).toISOString(),
+        title: formData.title,
         description: formData.description
       };
       
@@ -173,7 +180,16 @@ try {
                   Income
                 </button>
               </div>
-              
+<FormField
+                label="Title"
+                name="title"
+                type="text"
+                value={formData.title}
+                onChange={handleChange}
+                error={errors.title}
+                placeholder="Enter transaction title"
+                required
+              />
               <FormField
                 label="Amount"
                 name="amount"

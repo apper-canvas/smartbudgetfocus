@@ -57,8 +57,9 @@ const Transactions = () => {
   const applyFilters = () => {
     let filtered = [...transactions];
     
-    if (filters.search) {
+if (filters.search) {
       filtered = filtered.filter(t =>
+        (t.title && t.title.toLowerCase().includes(filters.search.toLowerCase())) ||
         t.category.toLowerCase().includes(filters.search.toLowerCase()) ||
         (t.description && t.description.toLowerCase().includes(filters.search.toLowerCase()))
       );
@@ -235,9 +236,12 @@ const Transactions = () => {
                       style={{ color: getCategoryColor(transaction.category) }}
                     />
                   </div>
-                  <div className="flex-1 min-w-0">
+<div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <p className="font-semibold text-secondary truncate">{transaction.category}</p>
+                      <p className="font-semibold text-secondary truncate">{transaction.title || transaction.category}</p>
+                      {transaction.title && (
+                        <span className="text-xs text-gray-500">• {transaction.category}</span>
+                      )}
                       <CategoryBadge
                         category={transaction.type}
                         icon={transaction.type === "income" ? "ArrowUpCircle" : "ArrowDownCircle"}

@@ -10,7 +10,8 @@ const transactionService = {
       const params = {
         fields: [
           { field: { Name: "Id" } },
-          { field: { Name: "Name" } },
+{ field: { Name: "Name" } },
+          { field: { Name: "title_c" } },
           { field: { Name: "amount_c" } },
           { field: { Name: "type_c" } },
           { field: { Name: "date_c" } },
@@ -28,7 +29,8 @@ const transactionService = {
       }
 
       return response.data.map((t) => ({
-        Id: t.Id,
+Id: t.Id,
+        title: t.title_c || "",
         amount: t.amount_c || 0,
         type: t.type_c || "",
         category: t.category_c?.Name || "",
@@ -53,7 +55,8 @@ const transactionService = {
       const params = {
         fields: [
           { field: { Name: "Id" } },
-          { field: { Name: "Name" } },
+{ field: { Name: "Name" } },
+          { field: { Name: "title_c" } },
           { field: { Name: "amount_c" } },
           { field: { Name: "type_c" } },
           { field: { Name: "date_c" } },
@@ -71,7 +74,8 @@ const transactionService = {
 
       const t = response.data;
       return {
-        Id: t.Id,
+Id: t.Id,
+        title: t.title_c || "",
         amount: t.amount_c || 0,
         type: t.type_c || "",
         category: t.category_c?.Name || "",
@@ -96,8 +100,9 @@ const transactionService = {
 const params = {
         records: [
           {
-            Name: `${transactionData.type} - ${transactionData.category}`,
+Name: `${transactionData.title || transactionData.type} - ${transactionData.category}`,
             amount_c: parseFloat(transactionData.amount),
+            title_c: transactionData.title || "",
             type_c: transactionData.type,
             category_c: parseInt(transactionData.categoryId), // Use integer ID for lookup field
             date_c: transactionData.date,
@@ -123,7 +128,8 @@ const params = {
 
         const created = response.results[0];
         return {
-          Id: created.data.Id,
+Id: created.data.Id,
+          title: created.data.title_c || "",
           amount: created.data.amount_c || 0,
           type: created.data.type_c || "",
           category: created.data.category_c?.Name || transactionData.category,
@@ -150,8 +156,9 @@ const params = {
         records: [
           {
             Id: parseInt(id),
-            Name: `${transactionData.type} - ${transactionData.category}`,
+Name: `${transactionData.title || transactionData.type} - ${transactionData.category}`,
             amount_c: parseFloat(transactionData.amount),
+            title_c: transactionData.title || "",
             type_c: transactionData.type,
             category_c: parseInt(transactionData.categoryId), // Use integer ID for lookup field
             date_c: transactionData.date,
@@ -176,7 +183,8 @@ const params = {
 
         const updated = response.results[0];
         return {
-          Id: updated.data.Id,
+Id: updated.data.Id,
+          title: updated.data.title_c || "",
           amount: updated.data.amount_c || 0,
           type: updated.data.type_c || "",
           category: updated.data.category_c?.Name || transactionData.category,
@@ -235,7 +243,8 @@ const params = {
 
       const params = {
         fields: [
-          { field: { Name: "Id" } },
+{ field: { Name: "Id" } },
+          { field: { Name: "title_c" } },
           { field: { Name: "Name" } },
           { field: { Name: "amount_c" } },
           { field: { Name: "type_c" } },
@@ -279,7 +288,8 @@ const params = {
       }
 
       return response.data.map((t) => ({
-        Id: t.Id,
+Id: t.Id,
+        title: t.title_c || "",
         amount: t.amount_c || 0,
         type: t.type_c || "",
         category: t.category_c?.Name || "",
@@ -304,7 +314,8 @@ const params = {
       const params = {
         fields: [
           { field: { Name: "Id" } },
-          { field: { Name: "Name" } },
+{ field: { Name: "Name" } },
+          { field: { Name: "title_c" } },
           { field: { Name: "amount_c" } },
           { field: { Name: "type_c" } },
           { field: { Name: "date_c" } },
@@ -330,7 +341,8 @@ const params = {
 
       return response.data.map((t) => ({
         Id: t.Id,
-        amount: t.amount_c || 0,
+amount: t.amount_c || 0,
+        title: t.title_c || "",
         type: t.type_c || "",
         category: t.category_c?.Name || "",
         date: t.date_c || new Date().toISOString(),
@@ -353,7 +365,8 @@ const params = {
 
       const params = {
         fields: [
-          { field: { Name: "Id" } },
+{ field: { Name: "Id" } },
+          { field: { Name: "title_c" } },
           { field: { Name: "Name" } },
           { field: { Name: "amount_c" } },
           { field: { Name: "type_c" } },
@@ -379,7 +392,8 @@ const params = {
       }
 
       return response.data.map((t) => ({
-        Id: t.Id,
+Id: t.Id,
+        title: t.title_c || "",
         amount: t.amount_c || 0,
         type: t.type_c || "",
         category: t.category_c?.Name || "",
